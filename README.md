@@ -1,4 +1,4 @@
-# AI Zippy — WordPress FSE Theme + WooCommerce
+# AI Nathan — WordPress FSE Theme + WooCommerce
 
 A Full Site Editing (FSE) WordPress theme with WooCommerce integration, built with Vite + React + `@wordpress/scripts`. Ships as a **parent + child theme** pair so that core features and per-client customizations stay cleanly separated.
 
@@ -24,8 +24,8 @@ A Full Site Editing (FSE) WordPress theme with WooCommerce integration, built wi
 
 | Role | Theme | Command | BrowserSync |
 |---|---|---|---|
-| **Core maintainer** (Shin) | `ai-zippy` (parent) | `npm run dev` | http://localhost:3000 |
-| **Client team** | `ai-zippy-child` (child) | `npm run dev:child` | http://localhost:3001 |
+| **Core maintainer** (Nathan) | `ai-nathan` (parent) | `npm run dev` | http://localhost:3000 |
+| **Client team** | `ai-nathan-child` (child) | `npm run dev:child` | http://localhost:3001 |
 
 - **Parent theme** holds the core system: cart, checkout, account, shop filter, shared blocks, REST API, design tokens.
 - **Child theme** holds per-client customizations: client-specific blocks, style overrides, template tweaks.
@@ -56,7 +56,7 @@ npm run build        # builds everything
 ## Project structure
 
 ```
-ai_zippy/
+ai_nathan/
 ├── package.json                  # All scripts (dev, dev:child, build, ...)
 ├── vite.config.parent.js         # Parent theme Vite config
 ├── vite.config.child.js          # Child theme Vite config
@@ -67,7 +67,7 @@ ai_zippy/
 │
 └── src/wp-content/themes/
     │
-    ├── ai-zippy/                 # Parent theme (core — maintained by Shin)
+    ├── ai-nathan/                 # Parent theme (core — maintained by Nathan)
     │   ├── functions.php         # 16-line loader — do not add logic here
     │   ├── theme.json            # Design tokens (single source of truth)
     │   ├── style.css             # Theme header
@@ -75,10 +75,10 @@ ai_zippy/
     │   ├── parts/                # Reusable parts (header, footer)
     │   ├── patterns/             # Block patterns
     │   ├── woocommerce/          # WC template overrides (checkout, myaccount, emails)
-    │   ├── inc/                  # PSR-4 PHP classes, AiZippy\ namespace
+    │   ├── inc/                  # PSR-4 PHP classes, AiNathan\ namespace
     │   │   ├── loader.php        # Autoloader + module bootstrap
     │   │   ├── Core/             # ViteAssets, ThemeSetup, Customizer, Cache
-    │   │   ├── Api/              # REST: /ai-zippy/v1/products
+    │   │   ├── Api/              # REST: /ai-nathan/v1/products
     │   │   ├── Hooks/            # Cache invalidation
     │   │   ├── Shop/             # Shop page assets
     │   │   ├── Cart/             # Cart page assets
@@ -106,9 +106,9 @@ ai_zippy/
     │       ├── dist/                     # Vite output
     │       └── blocks/                   # wp-scripts output
     │
-    └── ai-zippy-child/           # Child theme (per-client — maintained by team)
+    └── ai-nathan-child/           # Child theme (per-client — maintained by team)
         ├── functions.php         # Vite asset loader + child block registration
-        ├── style.css             # Child theme header (Template: ai-zippy)
+        ├── style.css             # Child theme header (Template: ai-nathan)
         ├── theme.json            # Client overrides (merged with parent)
         ├── templates/            # Per-client template overrides
         ├── parts/                # Per-client part overrides
@@ -160,18 +160,18 @@ npm run dev
 
 This starts three processes with labelled output:
 
-- `[vite]`   — watches `ai-zippy/src/**` and rebuilds to `ai-zippy/assets/dist/`
-- `[blocks]` — wp-scripts watches `ai-zippy/src/blocks/**` → `ai-zippy/assets/blocks/`
+- `[vite]`   — watches `ai-nathan/src/**` and rebuilds to `ai-nathan/assets/dist/`
+- `[blocks]` — wp-scripts watches `ai-nathan/src/blocks/**` → `ai-nathan/assets/blocks/`
 - `[bs]`     — BrowserSync proxies WordPress at port 3000
 
 Open **http://localhost:3000**. SCSS changes hot-inject; JS/PHP/HTML trigger a full reload.
 
 ### Parent conventions
 
-- All PHP logic lives in `inc/` classes under the `AiZippy\` namespace (PSR-4)
+- All PHP logic lives in `inc/` classes under the `AiNathan\` namespace (PSR-4)
 - `functions.php` is 16 lines — constants + `require loader.php` only
 - Every class has a static `register()` method called from `inc/loader.php`
-- Assets enqueued via `\AiZippy\Core\ViteAssets::enqueue('handle', 'manifest-key')`
+- Assets enqueued via `\AiNathan\Core\ViteAssets::enqueue('handle', 'manifest-key')`
 - Design tokens (`$c-primary`, `$c-accent`, etc.) come from `theme.json` → `_variables.scss`. **Never hardcode colors.**
 
 ---
@@ -184,11 +184,11 @@ Open **http://localhost:3000**. SCSS changes hot-inject; JS/PHP/HTML trigger a f
 npm run dev:child
 ```
 
-Opens **http://localhost:3001**. Parent CSS (from `ai-zippy/assets/dist/`) loads first, then child CSS (from `ai-zippy-child/assets/dist/`) overrides anything.
+Opens **http://localhost:3001**. Parent CSS (from `ai-nathan/assets/dist/`) loads first, then child CSS (from `ai-nathan-child/assets/dist/`) overrides anything.
 
 ### Adding a client-specific style override
 
-Edit `ai-zippy-child/src/scss/style.scss`:
+Edit `ai-nathan-child/src/scss/style.scss`:
 
 ```scss
 @use "@parent-scss/variables" as *;
@@ -212,7 +212,7 @@ Save — BrowserSync hot-injects the new styles. No reload needed.
 
 ### Adding client-specific JS
 
-Edit `ai-zippy-child/src/js/child.js`:
+Edit `ai-nathan-child/src/js/child.js`:
 
 ```js
 import "./modules/client-popup.js";
@@ -225,8 +225,8 @@ Copy the FSE template or WC template you want to customize into the child theme.
 
 ```bash
 # Example: override the shop template for this client
-cp src/wp-content/themes/ai-zippy/templates/archive-product.html \
-   src/wp-content/themes/ai-zippy-child/templates/archive-product.html
+cp src/wp-content/themes/ai-nathan/templates/archive-product.html \
+   src/wp-content/themes/ai-nathan-child/templates/archive-product.html
 ```
 
 Then edit the child copy.
@@ -268,11 +268,11 @@ $border-radius, $border-radius-lg, $box-shadow, $transition-speed
 
 ## Creating Gutenberg blocks
 
-Both parent and child auto-register blocks under the **AI Zippy** category from their respective `assets/blocks/*/block.json`.
+Both parent and child auto-register blocks under the **AI Nathan** category from their respective `assets/blocks/*/block.json`.
 
 ### Parent block (core — used across all clients)
 
-Create under `src/wp-content/themes/ai-zippy/src/blocks/my-block/`:
+Create under `src/wp-content/themes/ai-nathan/src/blocks/my-block/`:
 
 ```
 my-block/
@@ -289,7 +289,7 @@ Run `npm run dev` — wp-scripts picks it up automatically.
 
 ### Child block (client-specific)
 
-Mirror the same structure under `src/wp-content/themes/ai-zippy-child/src/blocks/client-block/`. Run `npm run dev:child`.
+Mirror the same structure under `src/wp-content/themes/ai-nathan-child/src/blocks/client-block/`. Run `npm run dev:child`.
 
 ### Critical rules for blocks
 
@@ -307,7 +307,7 @@ See [.claude/rules/blocks.md](.claude/rules/blocks.md) for the full list.
 Override any WooCommerce template by copying it into the theme's `woocommerce/` directory. Our existing overrides live in the **parent theme**:
 
 ```
-src/wp-content/themes/ai-zippy/woocommerce/
+src/wp-content/themes/ai-nathan/woocommerce/
 ├── checkout/
 │   ├── form-checkout.php       # Custom card-based layout
 │   └── thankyou.php            # Branded thank-you page
@@ -327,7 +327,7 @@ src/wp-content/themes/ai-zippy/woocommerce/
     └── customer-reset-password.php  # Branded reset email
 ```
 
-**For client-specific overrides:** copy the file into `ai-zippy-child/woocommerce/` — the child version takes priority. Edit the child copy, leave the parent untouched.
+**For client-specific overrides:** copy the file into `ai-nathan-child/woocommerce/` — the child version takes priority. Edit the child copy, leave the parent untouched.
 
 ---
 
@@ -349,7 +349,7 @@ Adjust `PROJECT_HOST` in `.env` if WordPress runs on a different port.
 
 ### "No entry file discovered" in child blocks
 
-Normal when the team hasn't added any blocks yet. `src/wp-content/themes/ai-zippy-child/src/blocks/` only has `.gitkeep`. wp-scripts prints the message and continues — no action needed.
+Normal when the team hasn't added any blocks yet. `src/wp-content/themes/ai-nathan-child/src/blocks/` only has `.gitkeep`. wp-scripts prints the message and continues — no action needed.
 
 ### Parent styles not loading in child dev
 
@@ -361,7 +361,7 @@ Another process is using the parent BrowserSync port. Either kill it, or edit `b
 
 ### Child CSS isn't overriding parent
 
-Check the enqueue order in `ai-zippy-child/functions.php` — the child CSS is enqueued with `['ai-zippy-theme-css-0']` as a dependency, so it loads *after* the parent. Hard refresh the browser (Cmd/Ctrl+Shift+R) to clear cached CSS.
+Check the enqueue order in `ai-nathan-child/functions.php` — the child CSS is enqueued with `['ai-nathan-theme-css-0']` as a dependency, so it loads *after* the parent. Hard refresh the browser (Cmd/Ctrl+Shift+R) to clear cached CSS.
 
 ### Blocks showing "Cannot redeclare function"
 
@@ -390,4 +390,4 @@ pkill -f "vite build"
 
 ## License
 
-Proprietary — Zippy <dev@zippy.sg>
+Proprietary — Nathan <dev@example.com>

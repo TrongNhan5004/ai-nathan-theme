@@ -14,7 +14,7 @@ import { existsSync } from "fs";
 // React/components runtime that WP core uses (no version mismatch).
 // =============================================================================
 
-const parentDir = resolve(__dirname, "src/wp-content/themes/ai-zippy");
+const parentDir = resolve(__dirname, "src/wp-content/themes/ai-nathan");
 const parentSrc = resolve(parentDir, "src");
 const shims     = resolve(parentSrc, "js/admin/shared/wp-shims");
 

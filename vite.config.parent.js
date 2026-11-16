@@ -3,13 +3,13 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 // =============================================================================
-// Parent theme (ai-zippy) Vite config
+// Parent theme (ai-nathan) Vite config
 // =============================================================================
 // Builds parent theme JS + SCSS only. Parent blocks are handled by @wordpress/scripts.
 // Child theme has its own vite.config.child.js — the two processes are independent.
 // =============================================================================
 
-const parentDir = resolve(__dirname, "src/wp-content/themes/ai-zippy");
+const parentDir = resolve(__dirname, "src/wp-content/themes/ai-nathan");
 const parentSrc = resolve(parentDir, "src");
 
 export default defineConfig({

@@ -23,7 +23,7 @@
 ## PHP Requirements
 - PHP 8.1+
 - PSR-4 autoloading via `inc/loader.php`
-- Namespace: `AiZippy\`
+- Namespace: `AiNathan\`
 - WordPress coding standards for hooks/filters
 - WooCommerce 8.x+ Store API
 

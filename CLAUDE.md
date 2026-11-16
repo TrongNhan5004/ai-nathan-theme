@@ -1,4 +1,4 @@
-# AI Zippy — FSE Theme + WooCommerce
+# AI Nathan — FSE Theme + WooCommerce
 
 Full Site Editing (FSE) WordPress theme with WooCommerce integration. Ships as a **parent + child theme pair** with two fully independent dev pipelines.
 
@@ -23,7 +23,7 @@ npm run build:blocks:child # Child blocks only
 ## Project Structure
 
 ```
-ai_zippy/
+ai_nathan/
 ├── package.json                  # All scripts
 ├── vite.config.parent.js         # Parent Vite config
 ├── vite.config.child.js          # Child Vite config (has @parent alias)
@@ -33,12 +33,12 @@ ai_zippy/
 ├── README.md                     # Team-facing docs
 └── src/wp-content/themes/
     │
-    ├── ai-zippy/                 # Parent theme (core)
+    ├── ai-nathan/                 # Parent theme (core)
     │   ├── theme.json            # Design tokens (single source of truth)
     │   ├── functions.php         # Constants + loader only (16 lines)
     │   ├── templates/            # FSE page templates (.html)
     │   ├── parts/                # Header, footer (carry .az-header / .az-footer)
-    │   ├── languages/            # 'ai-zippy' textdomain (.pot / .po / .mo)
+    │   ├── languages/            # 'ai-nathan' textdomain (.pot / .po / .mo)
     │   ├── woocommerce/          # WC template overrides
     │   │   ├── checkout/
     │   │   │   ├── form-checkout.php     # Card-based classic checkout
@@ -61,7 +61,7 @@ ai_zippy/
     │   │   ├── js/
     │   │   │   ├── frontend/
     │   │   │   │   ├── theme.js      # Entry — gates every module by feature flag
-    │   │   │   │   ├── core/         # config.js — the only reader of window.aiZippy
+    │   │   │   │   ├── core/         # config.js — the only reader of window.aiNathan
     │   │   │   │   ├── modules/      # Vanilla JS (header, search-bar, cart-api, add-to-cart)
     │   │   │   │   ├── shop-filter/  # React app: product filtering
     │   │   │   │   ├── cart/         # React app: cart
@@ -92,22 +92,22 @@ ai_zippy/
     │   ├── assets/
     │   │   ├── dist/             # Vite output
     │   │   └── blocks/           # wp-scripts output
-    │   └── inc/                  # PSR-4 classes, AiZippy\ namespace
+    │   └── inc/                  # PSR-4 classes, AiNathan\ namespace
     │       ├── loader.php        # Autoloader + bootstrap all modules
     │       ├── setup/
     │       │   └── dynamic-url.php       # Auto-detect URL for tunnel/local dev
     │       ├── Core/
     │       │   ├── ViteAssets.php        # Manifest reader + enqueue
-    │       │   ├── Runtime.php           # window.aiZippy — the parent↔child contract
+    │       │   ├── Runtime.php           # window.aiNathan — the parent↔child contract
     │       │   ├── Features.php          # Feature flag registry
     │       │   ├── L10n.php              # Every string rendered by frontend JS
     │       │   ├── ThemeSetup.php        # Supports, blocks, categories, textdomain
     │       │   ├── Customizer.php        # Logo + site icon support
-    │       │   ├── ThemeOptions.php      # "Zippy AI" admin page + revisions limit
+    │       │   ├── ThemeOptions.php      # "Nathan AI" admin page + revisions limit
     │       │   ├── Cache.php             # Centralized cache keys
     │       │   └── RateLimiter.php       # IP-based rate limiting
     │       ├── Api/
-    │       │   └── ProductFilterApi.php  # REST: /ai-zippy/v1/products
+    │       │   └── ProductFilterApi.php  # REST: /ai-nathan/v1/products
     │       ├── Hooks/
     │       │   └── CacheInvalidation.php
     │       ├── Shop/
@@ -125,9 +125,9 @@ ai_zippy/
     │       └── Account/
     │           └── AccountAssets.php     # Guest → /login/ redirect + removes Downloads nav
     │
-    └── ai-zippy-child/           # Child theme (per-client customizations)
+    └── ai-nathan-child/           # Child theme (per-client customizations)
         ├── functions.php         # Vite manifest reader + child block auto-registration
-        ├── style.css             # Theme header (Template: ai-zippy)
+        ├── style.css             # Theme header (Template: ai-nathan)
         ├── theme.json            # Per-client theme.json overrides
         ├── templates/            # Per-client template overrides
         ├── parts/
@@ -149,42 +149,42 @@ ai_zippy/
 - **Two fully independent dev processes** — parent and child each have their own Vite config, BrowserSync, and wp-scripts invocation
 - **Parent** = core features (cart, checkout, account, shop filter, shared blocks). Maintained by the core maintainer.
 - **Child** = per-client customizations (styles, blocks, template overrides). Maintained by the client team.
-- **CSS load order**: parent CSS loads first; child CSS is enqueued with `['ai-zippy-theme-css-0']` as a dependency so it overrides cleanly
+- **CSS load order**: parent CSS loads first; child CSS is enqueued with `['ai-nathan-theme-css-0']` as a dependency so it overrides cleanly
 - **Port split**: parent BS on 3000 (UI 3010), child BS on 3001 (UI 3011) — can run simultaneously
 - **Shared SCSS**: child uses `@use "@parent-scss/variables" as *;` — zero duplication of tokens/mixins
-- **Child block auto-registration**: `ai-zippy-child/functions.php` scans its own `assets/blocks/*/block.json` on `init`
+- **Child block auto-registration**: `ai-nathan-child/functions.php` scans its own `assets/blocks/*/block.json` on `init`
 
 ### Core Contract (Parent ↔ Child)
 The parent is a **feature library** — behaviour, data, configuration. The child is **design**. Every client has its own blocks and styling, so parent code may never assume how the markup looks or what the text says.
 
-- `AiZippy\Core\Features` — feature flag registry. Resolution order: `DEFAULTS` → `ai_zippy_feature_{key}` option → filter. Unknown keys resolve to `false` so a typo fails closed.
-- `AiZippy\Core\L10n` — every string rendered by frontend JS, wrapped in `__()`.
-- `AiZippy\Core\Runtime` — publishes all of it as `window.aiZippy` on `wp_enqueue_scripts` priority 15 (after `ViteAssets` at 10, so the `ai-zippy-theme` handle exists): `rest`, `endpoints`, `storeApi`, `urls`, `selectors`, `features`, `settings`, `i18n`.
+- `AiNathan\Core\Features` — feature flag registry. Resolution order: `DEFAULTS` → `ai_nathan_feature_{key}` option → filter. Unknown keys resolve to `false` so a typo fails closed.
+- `AiNathan\Core\L10n` — every string rendered by frontend JS, wrapped in `__()`.
+- `AiNathan\Core\Runtime` — publishes all of it as `window.aiNathan` on `wp_enqueue_scripts` priority 15 (after `ViteAssets` at 10, so the `ai-nathan-theme` handle exists): `rest`, `endpoints`, `storeApi`, `urls`, `selectors`, `features`, `settings`, `i18n`.
 - JS reads it **only** through `src/js/frontend/core/config.js` (`azText`, `azUrl`, `azUrlWithQuery`, `azFeature`, `azSetting`, `azSelector`, `azEndpoint`, `azNonce`, `azRestUrl`) — every accessor takes a fallback and survives a missing config (editor preview).
 - Parent JS must not hardcode user-facing text, URLs, or design-dependent selectors. Header/footer are found via `azSelector()`, backed by the `.az-header` / `.az-footer` classes on the template parts. REST calls go through `azRestUrl('wc/store/v1/cart')` — a literal `/wp-json/…` path 404s on a site with plain permalinks.
-- A parent block never overrides WooCommerce's internal `.wc-block-*` class names; it ships its own markup instead. `ai-zippy/mini-cart` replaces `woocommerce/mini-cart` for exactly that reason — see `.claude/rules/core-contract.md`.
+- A parent block never overrides WooCommerce's internal `.wc-block-*` class names; it ships its own markup instead. `ai-nathan/mini-cart` replaces `woocommerce/mini-cart` for exactly that reason — see `.claude/rules/core-contract.md`.
 - Every core behaviour is gated in `theme.js` by `azFeature('{key}')` so a client can switch it off with one filter instead of forking the parent.
-- Filters: `ai_zippy_features`, `ai_zippy_feature_{key}`, `ai_zippy_i18n_strings`, `ai_zippy_runtime_config`, `ai_zippy_selectors`, `ai_zippy_runtime_settings`, `ai_zippy_mini_cart_*`. Full reference: `.claude/rules/core-contract.md`.
+- Filters: `ai_nathan_features`, `ai_nathan_feature_{key}`, `ai_nathan_i18n_strings`, `ai_nathan_runtime_config`, `ai_nathan_selectors`, `ai_nathan_runtime_settings`, `ai_nathan_mini_cart_*`. Full reference: `.claude/rules/core-contract.md`.
 
 ### PHP — PSR-4 Classes (Parent)
-- All parent PHP logic lives in `inc/` under the `AiZippy\` namespace
+- All parent PHP logic lives in `inc/` under the `AiNathan\` namespace
 - `functions.php` only defines constants and requires `loader.php`
 - `loader.php` handles autoloading and bootstraps all modules via `::register()`
 - Never put logic directly in `functions.php`
 
 ### Child Theme `functions.php`
 - Not PSR-4 — single-file, procedural (small enough)
-- Contains: Vite manifest reader (`ai_zippy_child_vite_manifest()`), enqueue helper (`ai_zippy_child_enqueue_vite()`), module `type="module"` filter, and child block auto-registration
-- Mirrors the parent's `AiZippy\Core\ViteAssets` pattern but scoped to the child's own `assets/dist/`
+- Contains: Vite manifest reader (`ai_nathan_child_vite_manifest()`), enqueue helper (`ai_nathan_child_enqueue_vite()`), module `type="module"` filter, and child block auto-registration
+- Mirrors the parent's `AiNathan\Core\ViteAssets` pattern but scoped to the child's own `assets/dist/`
 - Skips empty SCSS stub JS files (< 100 bytes with `.scss` src) — avoids enqueueing useless 40-byte stubs when the team's `style.scss` is empty
-- Child CSS enqueued with dependency on `ai-zippy-theme-css-0` so it loads after parent
+- Child CSS enqueued with dependency on `ai-nathan-theme-css-0` so it loads after parent
 
 ### Dual Build System
 - **Vite**: Theme JS/SCSS + React apps → `assets/dist/` (separate configs for parent and child)
 - **@wordpress/scripts**: Gutenberg blocks → `assets/blocks/` (separate invocations with different `--webpack-src-dir` + `--output-path`)
 - Parent Vite entries: `theme`, `style`, `shop-filter`, `cart`, `checkout`, `product`, `wc-checkout`, `mini-cart-legacy`
 - Child Vite entries: `child-theme`, `child-style` (only included if source files exist)
-- Manifest keys use full paths from repo root: `src/wp-content/themes/ai-zippy/src/js/theme.js`
+- Manifest keys use full paths from repo root: `src/wp-content/themes/ai-nathan/src/js/theme.js`
 
 ### Vite Path Aliases
 - **Parent config** (`vite.config.parent.js`): `@` and `@scss` → parent `src/`
@@ -202,7 +202,7 @@ The parent is a **feature library** — behaviour, data, configuration. The chil
 - Mixins: `@include from(md)`, `@include until(lg)`, `@include transition(...)`, `@include truncate(2)`, `@include card-hover`
 
 ### WC Store API Nonce
-- Provided globally via `Runtime::inject()` as `wcBlocksMiddlewareConfig` — WooCommerce Blocks reads that exact global name, so it keeps its legacy shape alongside `window.aiZippy.storeApi`
+- Provided globally via `Runtime::inject()` as `wcBlocksMiddlewareConfig` — WooCommerce Blocks reads that exact global name, so it keeps its legacy shape alongside `window.aiNathan.storeApi`
 - Used by `cart-api.js`, `add-to-cart.js`, checkout API, cart API
 - Do NOT add duplicate nonces in page-specific asset classes
 
@@ -210,7 +210,7 @@ The parent is a **feature library** — behaviour, data, configuration. The chil
 - Admin selects template in **WooCommerce > Settings > Advanced > Checkout template**
 - `react` → React checkout app (step-by-step: Contact → Billing → Payment)
 - `woocommerce` → Classic WC checkout with custom `form-checkout.php` override
-- `[ai_zippy_checkout]` shortcode in `page-checkout.html` renders the selected template
+- `[ai_nathan_checkout]` shortcode in `page-checkout.html` renders the selected template
 - `CheckoutAssets` conditionally loads React JS or WC checkout CSS (never both)
 - Phone input uses `react-international-phone` library (preferred countries: SG, MY, VN)
 
@@ -239,7 +239,7 @@ The parent is a **feature library** — behaviour, data, configuration. The chil
 Admin apps are React panels mounted inside `wp-admin` pages. They consume WordPress's bundled React + `@wordpress/components` via `window.wp.*` globals rather than bundling their own copy, keeping bundles tiny (~12 KB vs ~500 KB).
 
 **Existing panels:**
-- **Typography** (Zippy AI → Typography): Hybrid font picker with Google / Upload / URL sources; live preview; drag-drop uploads. Backed by `AiZippy\Api\TypographyApi` REST routes.
+- **Typography** (Nathan AI → Typography): Hybrid font picker with Google / Upload / URL sources; live preview; drag-drop uploads. Backed by `AiNathan\Api\TypographyApi` REST routes.
 
 **Build pipeline** (`vite.config.admin.js`):
 - Entries live in `src/js/admin/{feature}/index.jsx`
@@ -248,7 +248,7 @@ Admin apps are React panels mounted inside `wp-admin` pages. They consume WordPr
 - Output: `assets/dist-admin/js/{name}.js` + `assets/dist-admin/css/{name}.css` (one file per entry, ES module format)
 
 **Shared admin layer** (`src/js/admin/shared/`):
-- `api.js` — `apiFetch` wrapper with `/ai-zippy/v1/` base (`apiGet`, `apiPost`, `apiDelete`, `apiUpload`)
+- `api.js` — `apiFetch` wrapper with `/ai-nathan/v1/` base (`apiGet`, `apiPost`, `apiDelete`, `apiUpload`)
 - `hooks/useSettings.js` — Generic `{ value, setValue, save, saving, loading, error, savedAt }` hook for any REST-backed settings resource
 - `wp-shims/` — window.wp.* adapters (add a new shim + alias in `vite.config.admin.js` when consuming a new `@wordpress/*` package)
 
@@ -260,13 +260,13 @@ Admin apps are React panels mounted inside `wp-admin` pages. They consume WordPr
 5. Create `inc/Admin/{Feature}.php` with `addSubMenu()` (renders `<div id="..."></div>` mount point) and `enqueueAdminApp()` (calls `ViteAssets::enqueueAdmin()`)
 6. Register in `inc/loader.php` under the `// Admin` group
 
-**PHP enqueue helper:** `AiZippy\Core\ViteAssets::enqueueAdmin($handle, $manifest_key)` auto-adds `wp-element`, `wp-components`, `wp-i18n`, `wp-api-fetch` as script deps and enqueues `wp-components` CSS.
+**PHP enqueue helper:** `AiNathan\Core\ViteAssets::enqueueAdmin($handle, $manifest_key)` auto-adds `wp-element`, `wp-components`, `wp-i18n`, `wp-api-fetch` as script deps and enqueues `wp-components` CSS.
 
 ### Gutenberg Blocks
 - Server-side rendered (`save.js` returns null, `render.php` for output)
-- Block category: "AI Zippy" (slug: `ai-zippy`) — both parent and child register under this same category
+- Block category: "AI Nathan" (slug: `ai-nathan`) — both parent and child register under this same category
 - **Parent blocks** (core, ship with every client): `hero-section`, `product-showcase`, `brand-intro`, `search-bar`, `mini-cart`
-- **Child blocks** (client-specific): live in `ai-zippy-child/src/blocks/` and auto-register via the child's `functions.php`
+- **Child blocks** (client-specific): live in `ai-nathan-child/src/blocks/` and auto-register via the child's `functions.php`
 - `product-showcase` uses Swiper.js (CDN, dynamically loaded)
 
 ## Coding Rules
@@ -278,10 +278,10 @@ Admin apps are React panels mounted inside `wp-admin` pages. They consume WordPr
 - SCSS uses `_variables.scss` mixins for responsive breakpoints
 - Child SCSS: import parent tokens via `@use "@parent-scss/variables" as *;` — never duplicate token values
 - WC template overrides go in `woocommerce/` directory (parent or child)
-- Per-client WC override? Copy the file into `ai-zippy-child/woocommerce/` — child version takes priority, parent stays untouched
+- Per-client WC override? Copy the file into `ai-nathan-child/woocommerce/` — child version takes priority, parent stays untouched
 - CSS class prefixes: `az-` (theme), `zc-` (cart app), `zk-` (checkout app), `sf__` (shop filter), `ma__` (my account), `ps__` (product-showcase block), `bi__` (brand-intro block)
 - Frontend strings belong in `Core\L10n`, not in JS — see Core Contract above
-- Textdomain is `ai-zippy` everywhere; loaded by `ThemeSetup::setup()` from `languages/`
+- Textdomain is `ai-nathan` everywhere; loaded by `ThemeSetup::setup()` from `languages/`
 
 **Detailed rule files** (read before touching the relevant layer):
 

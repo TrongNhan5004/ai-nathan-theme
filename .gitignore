@@ -5,11 +5,11 @@ yarn.lock
 pnpm-lock.yaml
 
 # Build output
-src/wp-content/themes/ai-zippy/assets/dist
-src/wp-content/themes/ai-zippy/assets/dist-admin
-src/wp-content/themes/ai-zippy/assets/blocks
-src/wp-content/themes/ai-zippy-child/assets/dist
-src/wp-content/themes/ai-zippy-child/assets/blocks
+src/wp-content/themes/ai-nathan/assets/dist
+src/wp-content/themes/ai-nathan/assets/dist-admin
+src/wp-content/themes/ai-nathan/assets/blocks
+src/wp-content/themes/ai-nathan-child/assets/dist
+src/wp-content/themes/ai-nathan-child/assets/blocks
 
 # Environment
 .env
@@ -25,8 +25,8 @@ src/wp-content/themes/twentytwentyfive
 src/wp-content/plugins/akismet
 src/wp-content/plugins/hello.php
 
-# Zippy owner plugins (not needed)
-src/wp-content/plugins/zippy-*
+# Nathan owner plugins (not needed)
+src/wp-content/plugins/nathan-*
 src/wp-content/plugins/epos-*
 
 # WordPress uploads and cache

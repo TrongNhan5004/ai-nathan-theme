@@ -10,7 +10,7 @@ import { readFileSync } from "fs";
 const envContent = readFileSync(".env", "utf-8");
 const hostMatch  = envContent.match(/PROJECT_HOST=(.+)/);
 const wpUrl      = hostMatch ? hostMatch[1].trim() : "http://localhost:24";
-const themeDir   = "src/wp-content/themes/ai-zippy";
+const themeDir   = "src/wp-content/themes/ai-nathan";
 
 browserSync.create("parent").init({
 	proxy: wpUrl,

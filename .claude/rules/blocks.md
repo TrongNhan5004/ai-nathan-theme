@@ -41,7 +41,7 @@ WordPress auto-adds the block class name. Adding it manually causes duplicate cl
 
 ```js
 // WRONG
-const blockProps = useBlockProps({ className: "wp-block-ai-zippy-my-block" });
+const blockProps = useBlockProps({ className: "wp-block-ai-nathan-my-block" });
 
 // CORRECT
 const blockProps = useBlockProps();
@@ -57,12 +57,12 @@ Fix in `editor.scss` with doubled class selector for higher specificity than `st
 
 ```scss
 // editor.scss
-.wp-block-ai-zippy-{name}.wp-block-ai-zippy-{name}:not(.is-loaded)::after {
+.wp-block-ai-nathan-{name}.wp-block-ai-nathan-{name}:not(.is-loaded)::after {
     content: none !important;
     display: none !important;
 }
 
-.wp-block-ai-zippy-{name}.wp-block-ai-zippy-{name}:not(.is-loaded) .my__content {
+.wp-block-ai-nathan-{name}.wp-block-ai-nathan-{name}:not(.is-loaded) .my__content {
     visibility: visible !important;
     height: auto !important;
     overflow: visible !important;
@@ -85,7 +85,7 @@ Use `file:./` relative paths. Never use absolute or parent directory paths.
 Blocks are auto-registered in `ThemeSetup::registerBlocks()` by scanning `assets/blocks/*/block.json`. No manual registration needed.
 
 ### 7. Block category
-All custom blocks use category `"ai-zippy"`. This is registered in `ThemeSetup::blockCategories()`.
+All custom blocks use category `"ai-nathan"`. This is registered in `ThemeSetup::blockCategories()`.
 
 ### 8. Import extensions
 Because of `"type": "module"` in package.json, block imports need `.js` extension:
