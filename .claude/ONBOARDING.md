@@ -1,6 +1,6 @@
 # Team Onboarding — AI-Assisted Development
 
-Welcome to the ai-zippy team. This guide gets you up and running in 15 minutes.
+Welcome to the ai-nathan team. This guide gets you up and running in 15 minutes.
 
 ---
 
@@ -9,7 +9,7 @@ Welcome to the ai-zippy team. This guide gets you up and running in 15 minutes.
 ### Claude (recommended)
 1. Open a new conversation
 2. Upload all files in `.claude/` as context, OR paste the contents of `CLAUDE.md`
-3. Tell Claude: _"You are working on the ai-zippy WooCommerce theme. Read CLAUDE.md and all rule files."_
+3. Tell Claude: _"You are working on the ai-nathan WooCommerce theme. Read CLAUDE.md and all rule files."_
 4. Claude will confirm it has read the rules — then you're ready
 
 ### Cursor / Windsurf
@@ -26,8 +26,8 @@ Welcome to the ai-zippy team. This guide gets you up and running in 15 minutes.
 
 ```bash
 # Clone the repo
-git clone git@github.com:your-org/ai-zippy.git
-cd ai-zippy
+git clone git@github.com:your-org/ai-nathan.git
+cd ai-nathan
 
 # Install dependencies
 npm install
@@ -87,7 +87,7 @@ The AI knows all project rules. Use it freely:
 
 ```
 "How do I add a new Gutenberg block?"
-"Show me the pattern for a new PHP class in AiZippy\Shop\"
+"Show me the pattern for a new PHP class in AiNathan\Shop\"
 "What CSS prefix should I use for the new wishlist feature?"
 "Generate a commit message for [paste diff]"
 "Generate a PR description for this branch [paste git log]"

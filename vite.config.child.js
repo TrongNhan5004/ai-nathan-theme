@@ -4,7 +4,7 @@ import { resolve } from "path";
 import { existsSync } from "fs";
 
 // =============================================================================
-// Child theme (ai-zippy-child) Vite config
+// Child theme (ai-nathan-child) Vite config
 // =============================================================================
 // Team uses this for client-specific customizations. Builds independently from
 // the parent theme — team can run `npm run dev:child` without touching parent.
@@ -13,10 +13,10 @@ import { existsSync } from "fs";
 // (colors, breakpoints, mixins).
 // =============================================================================
 
-const parentDir = resolve(__dirname, "src/wp-content/themes/ai-zippy");
+const parentDir = resolve(__dirname, "src/wp-content/themes/ai-nathan");
 const parentSrc = resolve(parentDir, "src");
 
-const childDir = resolve(__dirname, "src/wp-content/themes/ai-zippy-child");
+const childDir = resolve(__dirname, "src/wp-content/themes/ai-nathan-child");
 const childSrc = resolve(childDir, "src");
 
 // Only include entries that actually exist — lets the team add/remove without

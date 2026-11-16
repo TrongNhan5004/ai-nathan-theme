@@ -21,9 +21,9 @@ Before writing a single line of code, the AI agent MUST read these files:
 
 ## Project Identity
 
-- **Theme**: `ai-zippy` — WooCommerce FSE block theme
-- **Namespace**: `AiZippy\`
-- **Block prefix**: `ai-zippy/`
+- **Theme**: `ai-nathan` — WooCommerce FSE block theme
+- **Namespace**: `AiNathan\`
+- **Block prefix**: `ai-nathan/`
 - **CSS prefixes**: `az-` (theme), `zc-` (cart), `zk-` (checkout), `sf__` (shop filter)
 - **Build**: Vite → `assets/dist/` | @wordpress/scripts → `assets/blocks/`
 
@@ -39,10 +39,10 @@ no_direct_wp_enqueue: true          # Use ViteAssets::enqueue()
 no_jsx_in_save_js: true             # Always return null
 no_duplicate_nonces: true
 no_build_commands: true             # Dev server is running
-php_namespace: "AiZippy\\"
+php_namespace: "AiNathan\\"
 php_standard: PSR-4
 css_token_prefix: "var(--wp--preset--color--"
-block_category: "ai-zippy"
+block_category: "ai-nathan"
 language: english                   # All code/comments in English
 ```
 
@@ -78,7 +78,7 @@ Generate a conventional commit message. See `workflows/commit-standard.md`.
 
 ```php
 <?php
-namespace AiZippy\{Domain};
+namespace AiNathan\{Domain};
 
 defined('ABSPATH') || exit;
 

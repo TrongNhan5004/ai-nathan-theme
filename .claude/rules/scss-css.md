@@ -50,7 +50,7 @@ CSS that only applies to one template should be a separate Vite entry, loaded co
 
 ```php
 // Only load WC checkout CSS when WC default template is selected
-\AiZippy\Core\ViteAssets::enqueue('handle', 'entry-key');
+\AiNathan\Core\ViteAssets::enqueue('handle', 'entry-key');
 ```
 
 ### 5. Block SCSS — style.scss vs editor.scss
@@ -60,7 +60,7 @@ CSS that only applies to one template should be a separate Vite entry, loaded co
 If you need to override `style.scss` behavior in the editor, use doubled class selector in `editor.scss` for higher specificity:
 
 ```scss
-.wp-block-ai-zippy-name.wp-block-ai-zippy-name { ... }
+.wp-block-ai-nathan-name.wp-block-ai-nathan-name { ... }
 ```
 
 ### 6. Transition mixin — multiple properties

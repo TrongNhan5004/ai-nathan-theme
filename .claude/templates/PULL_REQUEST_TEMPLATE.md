@@ -34,7 +34,7 @@
 
 ## Checklist
 - [ ] No hardcoded colors — uses `var(--wp--preset--color--*)`
-- [ ] PHP classes under `AiZippy\` namespace in `inc/`
+- [ ] PHP classes under `AiNathan\` namespace in `inc/`
 - [ ] No logic in `functions.php`
 - [ ] `render.php` has `function_exists` guard (blocks only)
 - [ ] `save.js` returns `null` (blocks only)

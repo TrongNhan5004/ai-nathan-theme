@@ -1,6 +1,6 @@
 # Rules: Core Contract (Parent ↔ Child)
 
-The parent theme `ai-zippy` is a **core feature library**: behaviour, data and
+The parent theme `ai-nathan` is a **core feature library**: behaviour, data and
 configuration. The child theme is **design**. Every client site has its own
 blocks and styling, so nothing in the parent may assume how the markup looks or
 what the text says.
@@ -15,9 +15,9 @@ Three classes implement the contract:
 
 | Class | Responsibility |
 |---|---|
-| `AiZippy\Core\Features` | Which core features are on |
-| `AiZippy\Core\L10n` | Every string rendered by frontend JS |
-| `AiZippy\Core\Runtime` | Publishes both, plus URLs/nonces/selectors, as `window.aiZippy` |
+| `AiNathan\Core\Features` | Which core features are on |
+| `AiNathan\Core\L10n` | Every string rendered by frontend JS |
+| `AiNathan\Core\Runtime` | Publishes both, plus URLs/nonces/selectors, as `window.aiNathan` |
 
 ## Hard rules for parent code
 
@@ -31,12 +31,12 @@ Three classes implement the contract:
 4. **Every new core behaviour gets a feature flag** in `Features::DEFAULTS` and
    is gated in `theme.js` with `azFeature('my_feature')`.
 5. **Every decision a client may want to change gets a filter**, named
-   `ai_zippy_{feature}_{thing}`.
+   `ai_nathan_{feature}_{thing}`.
 
-## `window.aiZippy`
+## `window.aiNathan`
 
 Printed by `Runtime::inject()` on `wp_enqueue_scripts` priority 15, attached to
-the `ai-zippy-theme` handle.
+the `ai-nathan-theme` handle.
 
 ```js
 {
@@ -69,31 +69,31 @@ runs in the editor preview, where PHP never printed it.
 
 | Filter | Type | Purpose |
 |---|---|---|
-| `ai_zippy_features` | array | The whole feature map |
-| `ai_zippy_feature_{key}` | bool | One feature |
-| `ai_zippy_i18n_strings` | array | Add / replace frontend strings |
-| `ai_zippy_runtime_config` | array | The whole payload, applied last |
-| `ai_zippy_selectors` | array | DOM contract |
-| `ai_zippy_runtime_settings` | array | Numeric tunables |
-| `ai_zippy_mini_cart_icons` | array | Toggle icon set (raw SVG, echoed unescaped) |
-| `ai_zippy_mini_cart_free_shipping_threshold` | float | Override the detected threshold |
-| `ai_zippy_mini_cart_cross_sell_ids` | array | Cross-sell product ids |
-| `ai_zippy_legacy_mini_cart_css` | bool | Force the deprecated core-block stylesheet on/off |
+| `ai_nathan_features` | array | The whole feature map |
+| `ai_nathan_feature_{key}` | bool | One feature |
+| `ai_nathan_i18n_strings` | array | Add / replace frontend strings |
+| `ai_nathan_runtime_config` | array | The whole payload, applied last |
+| `ai_nathan_selectors` | array | DOM contract |
+| `ai_nathan_runtime_settings` | array | Numeric tunables |
+| `ai_nathan_mini_cart_icons` | array | Toggle icon set (raw SVG, echoed unescaped) |
+| `ai_nathan_mini_cart_free_shipping_threshold` | float | Override the detected threshold |
+| `ai_nathan_mini_cart_cross_sell_ids` | array | Cross-sell product ids |
+| `ai_nathan_legacy_mini_cart_css` | bool | Force the deprecated core-block stylesheet on/off |
 
 ### Child theme examples
 
 ```php
 // Turn a core feature off.
-add_filter('ai_zippy_feature_sticky_header', '__return_false');
+add_filter('ai_nathan_feature_sticky_header', '__return_false');
 
 // Point core behaviour at this client's markup.
-add_filter('ai_zippy_selectors', function (array $selectors): array {
+add_filter('ai_nathan_selectors', function (array $selectors): array {
     $selectors['header'] = '.client-topbar';
     return $selectors;
 });
 
 // Reword one string without touching translations.
-add_filter('ai_zippy_i18n_strings', function (array $strings): array {
+add_filter('ai_nathan_i18n_strings', function (array $strings): array {
     $strings['cart.add_success'] = __('Added to your basket', 'client-theme');
     return $strings;
 });
@@ -105,7 +105,7 @@ Declared in `Features::DEFAULTS`, resolved as
 `DEFAULTS → stored option → filter`. Unknown keys resolve to `false`, so a typo
 fails closed.
 
-Two flags read a pre-existing option instead of `ai_zippy_feature_{key}` so
+Two flags read a pre-existing option instead of `ai_nathan_feature_{key}` so
 settings saved before the registry existed still apply:
 
 | Flag | Legacy source |
@@ -115,7 +115,7 @@ settings saved before the registry existed still apply:
 
 ## Adding a string
 
-1. Add `'namespace.name' => __('English', 'ai-zippy')` to `L10n::strings()`.
+1. Add `'namespace.name' => __('English', 'ai-nathan')` to `L10n::strings()`.
 2. Use `azText('namespace.name', 'English')` in JS.
 3. Placeholders are `%s`, filled positionally: `azText(key, fallback, value)`.
 
@@ -124,10 +124,10 @@ Strings are inserted into `innerHTML` in a few render paths — escape any
 
 ## i18n
 
-`load_theme_textdomain('ai-zippy', .../languages)` runs in
-`ThemeSetup::setup()`. All PHP, block and `L10n` strings use the `ai-zippy`
+`load_theme_textdomain('ai-nathan', .../languages)` runs in
+`ThemeSetup::setup()`. All PHP, block and `L10n` strings use the `ai-nathan`
 textdomain. Regenerate the POT file with the command in
-`src/wp-content/themes/ai-zippy/languages/README.md`.
+`src/wp-content/themes/ai-nathan/languages/README.md`.
 
 ## Replacing a WooCommerce block
 
@@ -136,7 +136,7 @@ liability: those names are not a public API, so one Woo release breaks every
 client site at once. When the parent needs that behaviour, it ships its own block
 and owns the markup.
 
-`ai-zippy/mini-cart` is the reference implementation of that swap:
+`ai-nathan/mini-cart` is the reference implementation of that swap:
 
 | Piece | File |
 |---|---|
@@ -192,6 +192,6 @@ block, which covers Cart and Checkout itself by rendering a plain cart link.
 
 ## Back-compat
 
-`window.aiZippySearch` is still printed and still read as a fallback in
+`window.aiNathanSearch` is still printed and still read as a fallback in
 `search-bar.js`. It exists only so a site running a JS bundle built before this
 contract keeps working. Remove both once every site is rebuilt.

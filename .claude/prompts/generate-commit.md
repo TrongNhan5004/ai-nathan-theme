@@ -7,7 +7,7 @@ Use this prompt with any AI agent (Claude, Codex, Cursor) to generate a commit m
 ## Prompt to paste into AI
 
 ```
-You are a senior developer on the ai-zippy WooCommerce theme.
+You are a senior developer on the ai-nathan WooCommerce theme.
 Analyze the following git diff and generate a conventional commit message.
 
 Rules:
@@ -48,7 +48,7 @@ Ticket (optional): AZ-{id}
 ```
 feat(api): add UpsellApi REST endpoint for cart upsell products
 
-Registers GET /wp-json/ai-zippy/v1/upsell-products with WC product
+Registers GET /wp-json/ai-nathan/v1/upsell-products with WC product
 query filtered by current cart contents. Returns title, price, and
 thumbnail URL for display in the cart upsell block.
 

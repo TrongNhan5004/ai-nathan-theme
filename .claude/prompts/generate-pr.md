@@ -7,12 +7,12 @@ Use this prompt to auto-generate a complete PR description from your branch comm
 ## Prompt to paste into AI
 
 ```
-You are a senior developer on the ai-zippy WooCommerce theme.
+You are a senior developer on the ai-nathan WooCommerce theme.
 Generate a GitHub pull request description for this branch.
 
 Project context:
 - WooCommerce FSE block theme
-- PHP in AiZippy\ PSR-4 namespace
+- PHP in AiNathan\ PSR-4 namespace
 - Blocks in src/blocks/, React apps in src/js/, SCSS in src/scss/
 - Vite builds to assets/dist/, wp-scripts builds to assets/blocks/
 
@@ -51,7 +51,7 @@ Output the PR description using this exact template:
 
 ## Checklist
 - [ ] No hardcoded colors (uses `var(--wp--preset--color--*)`)
-- [ ] PHP classes in correct `AiZippy\` namespace
+- [ ] PHP classes in correct `AiNathan\` namespace
 - [ ] `render.php` has `function_exists` guard (if applicable)
 - [ ] `save.js` returns `null` (if applicable)
 - [ ] No logic in `functions.php`

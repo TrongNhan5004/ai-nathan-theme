@@ -1,12 +1,12 @@
 # Rules: PHP Classes & Architecture
 
 ## PSR-4 Namespace
-All PHP logic lives in `inc/` under the `AiZippy\` namespace.
+All PHP logic lives in `inc/` under the `AiNathan\` namespace.
 
 ```
-AiZippy\Core\ViteAssets      → inc/Core/ViteAssets.php
-AiZippy\Api\ProductFilterApi → inc/Api/ProductFilterApi.php
-AiZippy\Checkout\CheckoutAssets → inc/Checkout/CheckoutAssets.php
+AiNathan\Core\ViteAssets      → inc/Core/ViteAssets.php
+AiNathan\Api\ProductFilterApi → inc/Api/ProductFilterApi.php
+AiNathan\Checkout\CheckoutAssets → inc/Checkout/CheckoutAssets.php
 ```
 
 ## Critical Rules
@@ -17,10 +17,10 @@ AiZippy\Checkout\CheckoutAssets → inc/Checkout/CheckoutAssets.php
 ```php
 // functions.php — this is ALL it should contain
 defined('ABSPATH') || exit;
-define('AI_ZIPPY_THEME_VERSION', '4.0.0');
-define('AI_ZIPPY_THEME_DIR', get_template_directory());
-define('AI_ZIPPY_THEME_URI', get_template_directory_uri());
-require_once AI_ZIPPY_THEME_DIR . '/inc/loader.php';
+define('AI_NATHAN_THEME_VERSION', '4.0.0');
+define('AI_NATHAN_THEME_DIR', get_template_directory());
+define('AI_NATHAN_THEME_URI', get_template_directory_uri());
+require_once AI_NATHAN_THEME_DIR . '/inc/loader.php';
 ```
 
 ### 2. Class pattern — static register()
@@ -43,25 +43,25 @@ Register in `loader.php` grouped by domain:
 
 ```php
 // Core (always first)
-AiZippy\Core\ViteAssets::register();
-AiZippy\Core\ThemeSetup::register();
+AiNathan\Core\ViteAssets::register();
+AiNathan\Core\ThemeSetup::register();
 
 // Domain modules
-AiZippy\Shop\ShopAssets::register();
-AiZippy\Cart\CartAssets::register();
-AiZippy\Checkout\CheckoutSettings::register();
+AiNathan\Shop\ShopAssets::register();
+AiNathan\Cart\CartAssets::register();
+AiNathan\Checkout\CheckoutSettings::register();
 ```
 
 ### 4. Vite assets — use ViteAssets::enqueue()
 Never call `wp_enqueue_script/style` directly for Vite-built assets. Always use:
 
 ```php
-\AiZippy\Core\ViteAssets::enqueue('handle', 'manifest-key');
+\AiNathan\Core\ViteAssets::enqueue('handle', 'manifest-key');
 ```
 
 Manifest keys use full path from root:
 ```php
-'src/wp-content/themes/ai-zippy/src/js/theme.js'
+'src/wp-content/themes/ai-nathan/src/js/theme.js'
 ```
 
 ### 5. WC Store API nonce — provided globally

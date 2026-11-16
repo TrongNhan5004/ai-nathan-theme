@@ -68,7 +68,7 @@ The AI will analyze the commits and produce a complete PR description following 
 
 ## Checklist
 - [ ] No hardcoded colors (uses `var(--wp--preset--color--*)`)
-- [ ] PHP classes in correct `AiZippy\` namespace
+- [ ] PHP classes in correct `AiNathan\` namespace
 - [ ] `render.php` has `function_exists` guard
 - [ ] `save.js` returns `null`
 - [ ] No logic in `functions.php`
